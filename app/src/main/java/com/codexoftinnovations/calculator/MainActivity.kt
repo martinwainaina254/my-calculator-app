@@ -67,6 +67,22 @@ class MainActivity : AppCompatActivity() {
             lastDot = false
         }
 
+        findViewById<Button>(R.id.btnRemove).setOnClickListener {
+            val inputText = input.text.toString()
+
+            if (inputText.isNotEmpty()) {
+                // Remove the last character
+                input.text = inputText.substring(0, inputText.length - 1)
+            }
+
+            // Update the result if needed
+            tvResult.text = if (input.text.isEmpty()) "0" else input.text
+
+            // Update flags based on the new last character (optional)
+            lastNumeric = input.text.lastOrNull()?.isDigit() == true
+            lastDot = input.text.endsWith(".")
+        }
+
         // Equal button
         findViewById<Button>(R.id.btnEqual).setOnClickListener {
             if (lastNumeric) {
